@@ -26,13 +26,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: gitleaks-results.sarif
-      - name: Debug
-        run: |
-          pwd
-          ls -al work/
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: results.sarif
+          sarif_file: work/skills-introduction-to-secret-scanning/skills-introduction-to-secret-scanning/results.sarif
           
         
