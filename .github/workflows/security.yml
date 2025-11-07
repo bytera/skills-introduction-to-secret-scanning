@@ -13,7 +13,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Search file
         run: |
-          find / -name "gitleaks-results.sarif" 2>/dev/null
+          pwd
+          ls -al
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: gitleaks
