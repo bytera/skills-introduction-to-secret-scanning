@@ -9,7 +9,7 @@ jobs:
       - name: Test
         run: |
           docker pull ghcr.io/gitleaks/gitleaks:latest
-          docker run -v $(pwd):/gitleaks ghcr.io/gitleaks/gitleaks:latest dir . -v
+          docker run -v $(pwd):/gitleaks ghcr.io/gitleaks/gitleaks:latest dir gitleaks/ -v
           pwd
           ls -al
   # upload:
