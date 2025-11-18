@@ -6,11 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Test
+      - name: Run Gitleaks
         continue-on-error: true
         run: |
           docker pull ghcr.io/gitleaks/gitleaks:latest
           docker run -v $(pwd):/gitleaks ghcr.io/gitleaks/gitleaks:latest dir gitleaks/ -f json -r gitleaks/secrets.json
+      - name: Debug
+        run: |
           pwd
           ls -al
   # upload:
