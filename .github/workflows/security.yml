@@ -15,7 +15,7 @@ jobs:
         run: |
           jq -c '.[]' secrets.json | while read -r item; do
               secret_type=$(echo "$item" | jq -r '.RuleID')
-              fingerprint=$(echo "$item" | jq -r '.fingerprint')
+              fingerprint=$(echo "$item" | jq -r '.Fingerprint')
               echo "Secret Type: $secret_type, Location: $fingerprint"
           done
   # upload:
