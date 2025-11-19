@@ -13,7 +13,11 @@ jobs:
           docker run -v $(pwd):/gitleaks ghcr.io/gitleaks/gitleaks:latest dir gitleaks/ -f json -r gitleaks/secrets.json
       - name: Print each secret
         run: |
-          jq -c '.[]' secrets.json
+          jq -c '.[]' secrets.json | while read -r item; do
+              secret_type=$(echo "$item" | jq -r '.RuleID')
+              fingerprint=$(echo "$item" | jq -r '.fingerprint')
+              echo "Secret Type: $secret_type, Location: $fingerprint"
+          done
   # upload:
   #   runs-on: ubuntu-latest
   #   needs: scan
