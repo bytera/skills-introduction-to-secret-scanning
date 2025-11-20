@@ -12,13 +12,13 @@ jobs:
           docker pull ghcr.io/gitleaks/gitleaks:latest
           docker run -v $(pwd):/gitleaks ghcr.io/gitleaks/gitleaks:latest dir gitleaks/ -f json -r gitleaks/secrets.json
       - name: Create issue
-        env: GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           jq -c '.[]' secrets.json | while read -r item; do
               secret_type=$(echo "$item" | jq -r '.RuleID')
               fingerprint=$(echo "$item" | jq -r '.Fingerprint')
               gh issue create -t "Secret Detected" -b $fingerprint
           done
+        env: GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # upload:
   #   runs-on: ubuntu-latest
   #   needs: scan
