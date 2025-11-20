@@ -4,6 +4,8 @@ jobs:
   scan:
     name: gitleaks
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - uses: actions/checkout@v4
       - name: Run Gitleaks
@@ -14,8 +16,6 @@ jobs:
       - name: Create issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        permissions:
-          issues: write
         run: |
           jq -c '.[]' secrets.json | while read -r item; do
               secret_type=$(echo "$item" | jq -r '.RuleID')
