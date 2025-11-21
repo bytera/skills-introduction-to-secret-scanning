@@ -20,6 +20,7 @@ jobs:
           jq -c '.[]' secrets.json | while read -r item; do
               secret_type=$(echo "$item" | jq -r '.RuleID')
               fingerprint=$(echo "$item" | jq -r '.Fingerprint')
+              gh auth refresh -s project
               gh issue create -t "Secret Detected" -b $fingerprint -l secret -p Security
           done
   # upload:
