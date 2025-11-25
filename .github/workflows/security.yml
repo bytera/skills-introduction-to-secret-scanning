@@ -21,7 +21,7 @@ jobs:
           jq -c '.[]' secrets.json | while read -r item; do          
               line=$(echo "$item" | jq -r '.StartLine')
               file=$(echo "$item" | jq -r '.File')
-              url=https://github.com/${{ github.repository }}/blob/main/$file#L$line
+              url=https://github.com/${{ github.repository }}/blob/${{ github.base_ref }}/$file#L$line
               echo $url
           done
           #     fingerprint=$(echo "$item" | jq -r '.Fingerprint')
