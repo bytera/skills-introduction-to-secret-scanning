@@ -17,7 +17,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh issue list -l secret
+          gh issue list -l secret --json body
       # - name: Create URL
       #   env:
       #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
