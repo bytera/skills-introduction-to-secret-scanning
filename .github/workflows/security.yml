@@ -18,6 +18,19 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue list -l secret --json body -q '.[].body'
+      - name: Check Issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          issues=$(gh issue list -l secret --json body)
+          jq -c '.[]' secrets.json | while read -r item; do
+              line=$(echo "$item" | jq -r '.StartLine')
+              file=$(echo "$item" | jq -r '.File')
+              url=https://github.com/${{ github.repository }}/blob${{ github.ref_name }}/$file#L$line
+              if jq -e 'any(.[]; .body == $url)' <<<"$issues" >/dev/null; then
+                  echo $url
+              fi
+          done
       # - name: Create URL
       #   env:
       #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
