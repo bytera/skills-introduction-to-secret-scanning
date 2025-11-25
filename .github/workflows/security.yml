@@ -12,7 +12,7 @@ jobs:
         continue-on-error: true
         run: |
           docker pull ghcr.io/gitleaks/gitleaks:latest
-          docker run -v $(pwd):/gitleaks ghcr.io/gitleaks/gitleaks:latest dir gitleaks/ -f json -r gitleaks/secrets.json
+          docker run -v $(pwd):/gitleaks -w /gitleaks ghcr.io/gitleaks/gitleaks:latest dir . -f json -r secrets.json
       - name: List issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
