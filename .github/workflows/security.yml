@@ -22,11 +22,8 @@ jobs:
               line=$(echo "$item" | jq -r '.StartLine')
               file=$(echo "$item" | jq -r '.File')
               url=https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/$file#L$line
-              echo $url
+              gh issue create -t "Secret Detected" -b $url -l secret
           done
-          #     fingerprint=$(echo "$item" | jq -r '.Fingerprint')
-          #     gh issue create -t "Secret Detected" -b $fingerprint -l secret
-          # done
   # upload:
   #   runs-on: ubuntu-latest
   #   needs: scan
