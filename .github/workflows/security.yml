@@ -17,7 +17,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh issue list -l "secret"
+          gh issue list -l "secret" --json
           # jq -c '.[]' secrets.json | while read -r item; do
           #     secret_type=$(echo "$item" | jq -r '.RuleID')
           #     fingerprint=$(echo "$item" | jq -r '.Fingerprint')
