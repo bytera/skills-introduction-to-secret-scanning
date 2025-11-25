@@ -18,8 +18,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ github.sha }}
-          # jq -c '.[]' secrets.json | while read -r item; do
-          #     secret_type=$(echo "$item" | jq -r '.RuleID')
+          jq -c '.[]' secrets.json | while read -r item; do          
+              line=$(echo "$item" | jq -r '.StartLine')
+              file=$(echo "$item" | jq -r '.File')
+              url=https://github.com/${{ github.repository }}/blob/main/$file#$line
+              echo $url
+          done
           #     fingerprint=$(echo "$item" | jq -r '.Fingerprint')
           #     gh issue create -t "Secret Detected" -b $fingerprint -l secret
           # done
