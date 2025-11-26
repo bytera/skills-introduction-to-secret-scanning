@@ -13,12 +13,7 @@ jobs:
         run: |
           docker pull ghcr.io/gitleaks/gitleaks:latest
           docker run -v $(pwd):/gitleaks -w /gitleaks ghcr.io/gitleaks/gitleaks:latest dir . -f json -r secrets.json
-      - name: Get Issues
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh issue list -l secret --json body -q '.[].body'
-      - name: Check Issues
+      - name: Create New Issues
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
