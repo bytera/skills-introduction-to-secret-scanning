@@ -27,7 +27,7 @@ jobs:
               line=$(echo "$item" | jq -r '.StartLine')
               file=$(echo "$item" | jq -r '.File')
               url=https://github.com/${{ github.repository }}/blob${{ github.ref_name }}/$file#L$line
-              jq --arg url $url 'any(.[]; .body == $url)' issues
+              jq --arg url $url 'any(.[]; .body == $url)' $issues
           done
       # - name: Create URL
       #   env:
