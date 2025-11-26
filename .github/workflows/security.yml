@@ -27,8 +27,9 @@ jobs:
               line=$(echo "$item" | jq -r '.StartLine')
               file=$(echo "$item" | jq -r '.File')
               url=https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/$file#L$line
-              echo $url
-              jq --arg url $url 'any(.[]; .body == $url)' issues.json
+              if ! jq --arg url $url 'any(.[]; .body == $url)' issues.json; then
+                gh issue create -t "Secret Detected" -b $url -l secret
+              fi
           done
       # - name: Create URL
       #   env:
