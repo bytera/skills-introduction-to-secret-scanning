@@ -26,35 +26,3 @@ jobs:
                 gh issue create -t "Secret Detected" -b $url -l secret
               fi
           done
-      # - name: Create URL
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     echo ${{ github.sha }}
-      #     jq -c '.[]' secrets.json | while read -r item; do          
-      #         line=$(echo "$item" | jq -r '.StartLine')
-      #         file=$(echo "$item" | jq -r '.File')
-      #         url=https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/$file#L$line
-      #         gh issue create -t "Secret Detected" -b $url -l secret
-      #     done
-  # upload:
-  #   runs-on: ubuntu-latest
-  #   needs: scan
-  #   if: always()
-  #   permissions:
-  #     security-events: write
-  #     actions: read
-  #     contents: read
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v5
-  #     - name: Download SARIF
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: gitleaks-results.sarif
-  #     - name: Upload SARIF file
-  #       uses: github/codeql-action/upload-sarif@v4
-  #       with:
-  #         sarif_file: work/skills-introduction-to-secret-scanning/skills-introduction-to-secret-scanning/results.sarif
-          
-        
