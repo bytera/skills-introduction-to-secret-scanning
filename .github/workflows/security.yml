@@ -26,7 +26,7 @@ jobs:
           jq -c '.[]' secrets.json | while read -r item; do
               line=$(echo "$item" | jq -r '.StartLine')
               file=$(echo "$item" | jq -r '.File')
-              url=https://github.com/${{ github.repository }}/blob${{ github.ref_name }}/$file#L$line
+              url=https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/$file#L$line
               echo $url
               jq --arg url $url 'any(.[]; .body == $url)' issues.json
           done
